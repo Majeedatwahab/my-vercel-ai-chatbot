@@ -1,28 +1,26 @@
-import { openai } from '@ai-sdk/openai';
-import { fireworks } from '@ai-sdk/fireworks';
+import { google} from "@ai-sdk/google";
+import { fireworks } from "@ai-sdk/fireworks";
 import {
   customProvider,
   extractReasoningMiddleware,
   wrapLanguageModel,
-} from 'ai';
+  
+} from "ai";
 
-export const DEFAULT_CHAT_MODEL: string = 'chat-model-small';
+export const DEFAULT_CHAT_MODEL: string = "chat-model-small";
 
 export const myProvider = customProvider({
   languageModels: {
-    'chat-model-small': openai('gpt-4o-mini'),
-    'chat-model-large': openai('gpt-4o'),
-    'chat-model-reasoning': wrapLanguageModel({
-      model: fireworks('accounts/fireworks/models/deepseek-r1'),
-      middleware: extractReasoningMiddleware({ tagName: 'think' }),
+    "chat-model-small": google("gemini-1.5-pro-latest"),
+    "chat-model-large": google("gemini-1.5-flash-latest"),
+    "chat-model-reasoning": wrapLanguageModel({
+      model: fireworks("accounts/fireworks/models/deepseek-r1"),
+      middleware: extractReasoningMiddleware({ tagName: "think" }),
     }),
-    'title-model': openai('gpt-4-turbo'),
-    'block-model': openai('gpt-4o-mini'),
+    "title-model": google("gemini-1.5-pro-latest"),
+    "artifact-model": google("gemini-1.5-flash-latest"),
   },
-  imageModels: {
-    'small-model': openai.image('dall-e-2'),
-    'large-model': openai.image('dall-e-3'),
-  },
+ 
 });
 
 interface ChatModel {
@@ -33,18 +31,18 @@ interface ChatModel {
 
 export const chatModels: Array<ChatModel> = [
   {
-    id: 'chat-model-small',
-    name: 'Small model',
-    description: 'Small model for fast, lightweight tasks',
+    id: "chat-model-small",
+    name: "Small model",
+    description: "Small model for fast, lightweight tasks",
   },
   {
-    id: 'chat-model-large',
-    name: 'Large model',
-    description: 'Large model for complex, multi-step tasks',
+    id: "chat-model-large",
+    name: "Large model",
+    description: "Large model for complex, multi-step tasks",
   },
   {
-    id: 'chat-model-reasoning',
-    name: 'Reasoning model',
-    description: 'Uses advanced reasoning',
+    id: "chat-model-reasoning",
+    name: "Reasoning model",
+    description: "Uses advanced reasoning",
   },
 ];

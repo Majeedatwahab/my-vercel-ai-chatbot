@@ -1,44 +1,44 @@
-import { Suggestion } from '@/lib/db/schema';
-import { UseChatHelpers } from 'ai/react';
-import { ComponentType, Dispatch, ReactNode, SetStateAction } from 'react';
-import { DataStreamDelta } from './data-stream-handler';
-import { UIBlock } from './block';
+import { Suggestion } from "@/lib/db/schema";
+import { UseChatHelpers } from "ai/react";
+import { ComponentType, Dispatch, ReactNode, SetStateAction } from "react";
+import { DataStreamDelta } from "./data-stream-handler";
+import { UIArtifact } from "./artifact";
 
-export type BlockActionContext<M = any> = {
+export type ArtifactActionContext<M = any> = {
   content: string;
-  handleVersionChange: (type: 'next' | 'prev' | 'toggle' | 'latest') => void;
+  handleVersionChange: (type: "next" | "prev" | "toggle" | "latest") => void;
   currentVersionIndex: number;
   isCurrentVersion: boolean;
-  mode: 'edit' | 'diff';
+  mode: "edit" | "diff";
   metadata: M;
   setMetadata: Dispatch<SetStateAction<M>>;
 };
 
-type BlockAction<M = any> = {
+type ArtifactAction<M = any> = {
   icon: ReactNode;
   label?: string;
   description: string;
-  onClick: (context: BlockActionContext<M>) => Promise<void> | void;
-  isDisabled?: (context: BlockActionContext<M>) => boolean;
+  onClick: (context: ArtifactActionContext<M>) => Promise<void> | void;
+  isDisabled?: (context: ArtifactActionContext<M>) => boolean;
 };
 
-export type BlockToolbarContext = {
-  appendMessage: UseChatHelpers['append'];
+export type ArtifactToolbarContext = {
+  appendMessage: UseChatHelpers["append"];
 };
 
-export type BlockToolbarItem = {
+export type ArtifactToolbarItem = {
   description: string;
   icon: ReactNode;
-  onClick: (context: BlockToolbarContext) => void;
+  onClick: (context: ArtifactToolbarContext) => void;
 };
 
-interface BlockContent<M = any> {
+interface ArtifactContent<M = any> {
   title: string;
   content: string;
-  mode: 'edit' | 'diff';
+  mode: "edit" | "diff";
   isCurrentVersion: boolean;
   currentVersionIndex: number;
-  status: 'streaming' | 'idle';
+  status: "streaming" | "idle";
   suggestions: Array<Suggestion>;
   onSaveContent: (updatedContent: string, debounce: boolean) => void;
   isInline: boolean;
@@ -53,34 +53,34 @@ interface InitializeParameters<M = any> {
   setMetadata: Dispatch<SetStateAction<M>>;
 }
 
-type BlockConfig<T extends string, M = any> = {
+type ArtifactConfig<T extends string, M = any> = {
   kind: T;
   description: string;
-  content: ComponentType<BlockContent<M>>;
-  actions: Array<BlockAction<M>>;
-  toolbar: BlockToolbarItem[];
+  content: ComponentType<ArtifactContent<M>>;
+  actions: Array<ArtifactAction<M>>;
+  toolbar: ArtifactToolbarItem[];
   initialize?: (parameters: InitializeParameters<M>) => void;
   onStreamPart: (args: {
     setMetadata: Dispatch<SetStateAction<M>>;
-    setBlock: Dispatch<SetStateAction<UIBlock>>;
+    setArtifact: Dispatch<SetStateAction<UIArtifact>>;
     streamPart: DataStreamDelta;
   }) => void;
 };
 
-export class Block<T extends string, M = any> {
+export class Artifact<T extends string, M = any> {
   readonly kind: T;
   readonly description: string;
-  readonly content: ComponentType<BlockContent<M>>;
-  readonly actions: Array<BlockAction<M>>;
-  readonly toolbar: BlockToolbarItem[];
+  readonly content: ComponentType<ArtifactContent<M>>;
+  readonly actions: Array<ArtifactAction<M>>;
+  readonly toolbar: ArtifactToolbarItem[];
   readonly initialize?: (parameters: InitializeParameters) => void;
   readonly onStreamPart: (args: {
     setMetadata: Dispatch<SetStateAction<M>>;
-    setBlock: Dispatch<SetStateAction<UIBlock>>;
+    setArtifact: Dispatch<SetStateAction<UIArtifact>>;
     streamPart: DataStreamDelta;
   }) => void;
 
-  constructor(config: BlockConfig<T, M>) {
+  constructor(config: ArtifactConfig<T, M>) {
     this.kind = config.kind;
     this.description = config.description;
     this.content = config.content;

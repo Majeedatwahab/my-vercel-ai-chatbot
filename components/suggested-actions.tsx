@@ -21,19 +21,19 @@ function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
       action: 'What are the advantages of using Next.js?',
     },
     {
-      title: 'Write code to',
-      label: `demonstrate djikstra's algorithm`,
-      action: `Write code to demonstrate djikstra's algorithm`,
+      title: 'Introduction to',
+      label: `Frontend Development`,
+      action: `An Introduction to Frontend Development`,
     },
     {
-      title: 'Help me write an essay',
-      label: `about silicon valley`,
-      action: `Help me write an essay about silicon valley`,
+      title: 'Write a JavaScript code',
+      label: `To sum up two random numbers`,
+      action: `Write a JavaScript code to sum up two random numbers`,
     },
     {
-      title: 'What is the weather',
-      label: 'in San Francisco?',
-      action: 'What is the weather in San Francisco?',
+      title: 'What is Prop Drilling',
+      label: 'in React?',
+      action: 'What is Prop Drilling?',
     },
   ];
 

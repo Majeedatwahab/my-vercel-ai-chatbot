@@ -31,6 +31,7 @@ export function SidebarUserNav({ user }: { user: User }) {
                 src={`https://avatar.vercel.sh/${user.email}`}
                 alt={user.email ?? 'User Avatar'}
                 width={24}
+                priority
                 height={24}
                 className="rounded-full"
               />

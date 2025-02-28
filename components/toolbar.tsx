@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import type { ChatRequestOptions, CreateMessage, Message } from 'ai';
-import cx from 'classnames';
+import type { ChatRequestOptions, CreateMessage, Message } from "ai";
+import cx from "classnames";
 import {
   AnimatePresence,
   motion,
   useMotionValue,
   useTransform,
-} from 'framer-motion';
+} from "framer-motion";
 import {
   type Dispatch,
   memo,
@@ -16,16 +16,16 @@ import {
   useEffect,
   useRef,
   useState,
-} from 'react';
-import { useOnClickOutside } from 'usehooks-ts';
-import { nanoid } from 'nanoid';
+} from "react";
+import { useOnClickOutside } from "usehooks-ts";
+import { nanoid } from "nanoid";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { sanitizeUIMessages } from '@/lib/utils';
+} from "@/components/ui/tooltip";
+import { sanitizeUIMessages } from "@/lib/utils";
 
 import {
   ArrowUpIcon,
@@ -36,10 +36,10 @@ import {
   SparklesIcon,
   StopIcon,
   SummarizeIcon,
-} from './icons';
-import { blockDefinitions, BlockKind } from './block';
-import { BlockToolbarItem } from './create-block';
-import { UseChatHelpers } from 'ai/react';
+} from "./icons";
+import { artifactDefinitions, ArtifactKind } from "./artifact";
+import { ArtifactToolbarItem } from "./create-artifact";
+import { UseChatHelpers } from "ai/react";
 
 type ToolProps = {
   description: string;
@@ -51,12 +51,12 @@ type ToolProps = {
   isAnimating: boolean;
   append: (
     message: Message | CreateMessage,
-    chatRequestOptions?: ChatRequestOptions,
+    chatRequestOptions?: ChatRequestOptions
   ) => Promise<string | null | undefined>;
   onClick: ({
     appendMessage,
   }: {
-    appendMessage: UseChatHelpers['append'];
+    appendMessage: UseChatHelpers["append"];
   }) => void;
 };
 
@@ -103,8 +103,8 @@ const Tool = ({
     <Tooltip open={isHovered && !isAnimating}>
       <TooltipTrigger asChild>
         <motion.div
-          className={cx('p-3 rounded-full', {
-            'bg-primary !text-primary-foreground': selectedTool === description,
+          className={cx("p-3 rounded-full", {
+            "bg-primary !text-primary-foreground": selectedTool === description,
           })}
           onHoverStart={() => {
             setIsHovered(true);
@@ -113,7 +113,7 @@ const Tool = ({
             if (selectedTool !== description) setIsHovered(false);
           }}
           onKeyDown={(event) => {
-            if (event.key === 'Enter') {
+            if (event.key === "Enter") {
               handleSelect();
             }
           }}
@@ -155,16 +155,16 @@ const ReadingLevelSelector = ({
   isAnimating: boolean;
   append: (
     message: Message | CreateMessage,
-    chatRequestOptions?: ChatRequestOptions,
+    chatRequestOptions?: ChatRequestOptions
   ) => Promise<string | null | undefined>;
 }) => {
   const LEVELS = [
-    'Elementary',
-    'Middle School',
-    'Keep current level',
-    'High School',
-    'College',
-    'Graduate',
+    "Elementary",
+    "Middle School",
+    "Keep current level",
+    "High School",
+    "College",
+    "Graduate",
   ];
 
   const y = useMotionValue(-40 * 2);
@@ -176,7 +176,7 @@ const ReadingLevelSelector = ({
     useState<boolean>(false);
 
   useEffect(() => {
-    const unsubscribe = yToLevel.on('change', (latest) => {
+    const unsubscribe = yToLevel.on("change", (latest) => {
       const level = Math.min(5, Math.max(0, Math.round(Math.abs(latest))));
       setCurrentLevel(level);
     });
@@ -204,11 +204,11 @@ const ReadingLevelSelector = ({
           <TooltipTrigger asChild>
             <motion.div
               className={cx(
-                'absolute bg-background p-3 border rounded-full flex flex-row items-center',
+                "absolute bg-background p-3 border rounded-full flex flex-row items-center",
                 {
-                  'bg-primary text-primary-foreground': currentLevel !== 2,
-                  'bg-background text-foreground': currentLevel === 2,
-                },
+                  "bg-primary text-primary-foreground": currentLevel !== 2,
+                  "bg-background text-foreground": currentLevel === 2,
+                }
               )}
               style={{ y }}
               drag="y"
@@ -231,7 +231,7 @@ const ReadingLevelSelector = ({
               onClick={() => {
                 if (currentLevel !== 2 && hasUserSelectedLevel) {
                   append({
-                    role: 'user',
+                    role: "user",
                     content: `Please adjust the reading level to ${LEVELS[currentLevel]} level.`,
                   });
 
@@ -269,11 +269,11 @@ export const Tools = ({
   setSelectedTool: Dispatch<SetStateAction<string | null>>;
   append: (
     message: Message | CreateMessage,
-    chatRequestOptions?: ChatRequestOptions,
+    chatRequestOptions?: ChatRequestOptions
   ) => Promise<string | null | undefined>;
   isAnimating: boolean;
   setIsToolbarVisible: Dispatch<SetStateAction<boolean>>;
-  tools: Array<BlockToolbarItem>;
+  tools: Array<ArtifactToolbarItem>;
 }) => {
   const [primaryTool, ...secondaryTools] = tools;
 
@@ -322,18 +322,18 @@ const PureToolbar = ({
   isLoading,
   stop,
   setMessages,
-  blockKind,
+  artifactKind,
 }: {
   isToolbarVisible: boolean;
   setIsToolbarVisible: Dispatch<SetStateAction<boolean>>;
   isLoading: boolean;
   append: (
     message: Message | CreateMessage,
-    chatRequestOptions?: ChatRequestOptions,
+    chatRequestOptions?: ChatRequestOptions
   ) => Promise<string | null | undefined>;
   stop: () => void;
   setMessages: Dispatch<SetStateAction<Message[]>>;
-  blockKind: BlockKind;
+  artifactKind: ArtifactKind;
 }) => {
   const toolbarRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
@@ -377,17 +377,17 @@ const PureToolbar = ({
     }
   }, [isLoading, setIsToolbarVisible]);
 
-  const blockDefinition = blockDefinitions.find(
-    (definition) => definition.kind === blockKind,
+  const artifactDefinition = artifactDefinitions.find(
+    (definition) => definition.kind === artifactKind
   );
 
-  if (!blockDefinition) {
-    throw new Error('Block definition not found!');
+  if (!artifactDefinition) {
+    throw new Error("Artifact definition not found!");
   }
 
-  const toolsByBlockKind = blockDefinition.toolbar;
+  const toolsByArtifactKind = artifactDefinition.toolbar;
 
-  if (toolsByBlockKind.length === 0) {
+  if (toolsByArtifactKind.length === 0) {
     return null;
   }
 
@@ -398,7 +398,7 @@ const PureToolbar = ({
         initial={{ opacity: 0, y: -20, scale: 1 }}
         animate={
           isToolbarVisible
-            ? selectedTool === 'adjust-reading-level'
+            ? selectedTool === "adjust-reading-level"
               ? {
                   opacity: 1,
                   y: 0,
@@ -409,14 +409,14 @@ const PureToolbar = ({
               : {
                   opacity: 1,
                   y: 0,
-                  height: toolsByBlockKind.length * 50,
+                  height: toolsByArtifactKind.length * 50,
                   transition: { delay: 0 },
                   scale: 1,
                 }
             : { opacity: 1, y: 0, height: 54, transition: { delay: 0 } }
         }
         exit={{ opacity: 0, y: -20, transition: { duration: 0.1 } }}
-        transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+        transition={{ type: "spring", stiffness: 300, damping: 25 }}
         onHoverStart={() => {
           if (isLoading) return;
 
@@ -450,7 +450,7 @@ const PureToolbar = ({
           >
             <StopIcon />
           </motion.div>
-        ) : selectedTool === 'adjust-reading-level' ? (
+        ) : selectedTool === "adjust-reading-level" ? (
           <ReadingLevelSelector
             key="reading-level-selector"
             append={append}
@@ -466,7 +466,7 @@ const PureToolbar = ({
             selectedTool={selectedTool}
             setIsToolbarVisible={setIsToolbarVisible}
             setSelectedTool={setSelectedTool}
-            tools={toolsByBlockKind}
+            tools={toolsByArtifactKind}
           />
         )}
       </motion.div>
@@ -477,7 +477,7 @@ const PureToolbar = ({
 export const Toolbar = memo(PureToolbar, (prevProps, nextProps) => {
   if (prevProps.isLoading !== nextProps.isLoading) return false;
   if (prevProps.isToolbarVisible !== nextProps.isToolbarVisible) return false;
-  if (prevProps.blockKind !== nextProps.blockKind) return false;
+  if (prevProps.artifactKind !== nextProps.artifactKind) return false;
 
   return true;
 });

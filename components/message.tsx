@@ -4,7 +4,7 @@ import type { ChatRequestOptions, Message } from 'ai';
 import cx from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { memo, useMemo, useState } from 'react';
-
+import dynamic from 'next/dynamic';
 import type { Vote } from '@/lib/db/schema';
 
 import { DocumentToolCall, DocumentToolResult } from './document';
@@ -25,6 +25,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import { MessageEditor } from './message-editor';
 import { DocumentPreview } from './document-preview';
 import { MessageReasoning } from './message-reasoning';
+import { Card, CardHeader, CardTitle, } from './ui/card';
+
 
 const PurePreviewMessage = ({
   chatId,
@@ -39,6 +41,7 @@ const PurePreviewMessage = ({
   message: Message;
   vote: Vote | undefined;
   isLoading: boolean;
+
   setMessages: (
     messages: Message[] | ((messages: Message[]) => Message[]),
   ) => void;
@@ -59,14 +62,14 @@ const PurePreviewMessage = ({
       >
         <div
           className={cn(
-            'flex gap-4 w-full group-data-[role=user]/message:ml-auto group-data-[role=user]/message:max-w-2xl',
+            "flex gap-4 w-full group-data-[role=user]/message:ml-auto group-data-[role=user]/message:max-w-2xl",
             {
-              'w-full': mode === 'edit',
-              'group-data-[role=user]/message:w-fit': mode !== 'edit',
-            },
+              "w-full": mode === "edit",
+              "group-data-[role=user]/message:w-fit": mode !== "edit",
+            }
           )}
         >
-          {message.role === 'assistant' && (
+          {message.role === "assistant" && (
             <div className="size-8 flex items-center rounded-full justify-center ring-1 shrink-0 ring-border bg-background">
               <div className="translate-y-px">
                 <SparklesIcon size={14} />
@@ -93,16 +96,16 @@ const PurePreviewMessage = ({
               />
             )}
 
-            {(message.content || message.reasoning) && mode === 'view' && (
+            {(message.content || message.reasoning) && mode === "view" && (
               <div className="flex flex-row gap-2 items-start">
-                {message.role === 'user' && !isReadonly && (
+                {message.role === "user" && !isReadonly && (
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
                         variant="ghost"
                         className="px-2 h-fit rounded-full text-muted-foreground opacity-0 group-hover/message:opacity-100"
                         onClick={() => {
-                          setMode('edit');
+                          setMode("edit");
                         }}
                       >
                         <PencilEditIcon />
@@ -113,9 +116,10 @@ const PurePreviewMessage = ({
                 )}
 
                 <div
-                  className={cn('flex flex-col gap-4', {
-                    'bg-primary text-primary-foreground px-3 py-2 rounded-xl':
-                      message.role === 'user',
+                  className={cn("flex flex-col gap-4", {
+                    "bg-primary text-primary-foreground px-3 py-2 rounded-xl":
+                      message.role === "user",
+                     
                   })}
                 >
                   <Markdown>{message.content as string}</Markdown>
@@ -123,7 +127,7 @@ const PurePreviewMessage = ({
               </div>
             )}
 
-            {message.content && mode === 'edit' && (
+            {message.content && mode === "edit" && (
               <div className="flex flex-row gap-2 items-start">
                 <div className="size-8" />
 
@@ -142,25 +146,25 @@ const PurePreviewMessage = ({
                 {message.toolInvocations.map((toolInvocation) => {
                   const { toolName, toolCallId, state, args } = toolInvocation;
 
-                  if (state === 'result') {
+                  if (state === "result") {
                     const { result } = toolInvocation;
 
                     return (
                       <div key={toolCallId}>
-                        {toolName === 'getWeather' ? (
+                        {toolName === "getWeather" ? (
                           <Weather weatherAtLocation={result} />
-                        ) : toolName === 'createDocument' ? (
+                        ) : toolName === "createDocument" ? (
                           <DocumentPreview
                             isReadonly={isReadonly}
                             result={result}
                           />
-                        ) : toolName === 'updateDocument' ? (
+                        ) : toolName === "updateDocument" ? (
                           <DocumentToolResult
                             type="update"
                             result={result}
                             isReadonly={isReadonly}
                           />
-                        ) : toolName === 'requestSuggestions' ? (
+                        ) : toolName === "requestSuggestions" ? (
                           <DocumentToolResult
                             type="request-suggestions"
                             result={result}
@@ -176,20 +180,20 @@ const PurePreviewMessage = ({
                     <div
                       key={toolCallId}
                       className={cx({
-                        skeleton: ['getWeather'].includes(toolName),
+                        skeleton: ["getWeather"].includes(toolName),
                       })}
                     >
-                      {toolName === 'getWeather' ? (
+                      {toolName === "getWeather" ? (
                         <Weather />
-                      ) : toolName === 'createDocument' ? (
+                      ) : toolName === "createDocument" ? (
                         <DocumentPreview isReadonly={isReadonly} args={args} />
-                      ) : toolName === 'updateDocument' ? (
+                      ) : toolName === "updateDocument" ? (
                         <DocumentToolCall
                           type="update"
                           args={args}
                           isReadonly={isReadonly}
                         />
-                      ) : toolName === 'requestSuggestions' ? (
+                      ) : toolName === "requestSuggestions" ? (
                         <DocumentToolCall
                           type="request-suggestions"
                           args={args}
@@ -239,30 +243,35 @@ export const PreviewMessage = memo(
 );
 
 export const ThinkingMessage = () => {
-  const role = 'assistant';
+  const role = "assistant";
 
   return (
     <motion.div
-      className="w-full mx-auto max-w-3xl px-4 group/message "
+      className="w-full mx-auto max-w-3xl px-4 group/message"
       initial={{ y: 5, opacity: 0 }}
-      animate={{ y: 0, opacity: 1, transition: { delay: 1 } }}
+      animate={{ y: 0, opacity: 1, transition: { delay: 0.5 } }}
       data-role={role}
     >
       <div
         className={cx(
-          'flex gap-4 group-data-[role=user]/message:px-3 w-full group-data-[role=user]/message:w-fit group-data-[role=user]/message:ml-auto group-data-[role=user]/message:max-w-2xl group-data-[role=user]/message:py-2 rounded-xl',
+          "flex gap-4 w-full rounded-xl p-4 bg-gradient-to-r from-gray-100 to-gray-200 shadow-md",
           {
-            'group-data-[role=user]/message:bg-muted': true,
-          },
+            "group-data-[role=user]/message:bg-muted": true,
+          }
         )}
       >
-        <div className="size-8 flex items-center rounded-full justify-center ring-1 shrink-0 ring-border">
+        <div className="size-8 flex items-center rounded-full justify-center ring-1 shrink-0 ring-border bg-white">
           <SparklesIcon size={14} />
         </div>
 
         <div className="flex flex-col gap-2 w-full">
           <div className="flex flex-col gap-4 text-muted-foreground">
-            Thinking...
+            <p className="font-medium text-gray-700">Thinking...</p>
+            <div className="space-y-2">
+              <div className="h-6 bg-gray-300 rounded w-3/4 animate-pulse"></div>
+              <div className="h-6 bg-gray-300 rounded w-2/4 animate-pulse"></div>
+              <div className="h-6 bg-gray-300 rounded w-5/6 animate-pulse"></div>
+            </div>
           </div>
         </div>
       </div>
