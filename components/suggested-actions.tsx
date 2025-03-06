@@ -1,39 +1,39 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Button } from './ui/button';
-import { ChatRequestOptions, CreateMessage, Message } from 'ai';
-import { memo } from 'react';
+import { motion } from "framer-motion";
+import { Button } from "./ui/button";
+import { ChatRequestOptions, CreateMessage, Message } from "ai";
+import { memo } from "react";
 
 interface SuggestedActionsProps {
   chatId: string;
   append: (
     message: Message | CreateMessage,
-    chatRequestOptions?: ChatRequestOptions,
+    chatRequestOptions?: ChatRequestOptions
   ) => Promise<string | null | undefined>;
 }
 
 function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
   const suggestedActions = [
     {
-      title: 'What are the advantages',
-      label: 'of using Next.js?',
-      action: 'What are the advantages of using Next.js?',
+      title: "What are the advantages",
+      label: "of using Next.js?",
+      action: "What are the advantages of using Next.js?",
     },
     {
-      title: 'Introduction to',
+      title: "Introduction to",
       label: `Frontend Development`,
       action: `An Introduction to Frontend Development`,
     },
     {
-      title: 'Write a JavaScript code',
+      title: "Write a JavaScript code",
       label: `To sum up two random numbers`,
       action: `Write a JavaScript code to sum up two random numbers`,
     },
     {
-      title: 'What is Prop Drilling',
-      label: 'in React?',
-      action: 'What is Prop Drilling?',
+      title: "What is Prop Drilling",
+      label: "in React?",
+      action: "What is Prop Drilling?",
     },
   ];
 
@@ -46,15 +46,15 @@ function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
           exit={{ opacity: 0, y: 20 }}
           transition={{ delay: 0.05 * index }}
           key={`suggested-action-${suggestedAction.title}-${index}`}
-          className={index > 1 ? 'hidden sm:block' : 'block'}
+          className={index > 1 ? "hidden sm:block" : "block"}
         >
           <Button
             variant="ghost"
             onClick={async () => {
-              window.history.replaceState({}, '', `/chat/${chatId}`);
+              window.history.replaceState({}, "", `/chat/${chatId}`);
 
               append({
-                role: 'user',
+                role: "user",
                 content: suggestedAction.action,
               });
             }}
