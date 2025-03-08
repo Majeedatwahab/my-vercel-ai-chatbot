@@ -1,5 +1,4 @@
 import type { Attachment } from 'ai';
-import Image from 'next/image';
 import { LoaderIcon } from './icons';
 
 export const PreviewAttachment = ({

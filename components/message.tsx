@@ -3,14 +3,11 @@
 import type { ChatRequestOptions, Message } from 'ai';
 import cx from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
-import { memo, useMemo, useState } from 'react';
-import dynamic from 'next/dynamic';
+import { memo, useState } from 'react';
 import type { Vote } from '@/lib/db/schema';
 
 import { DocumentToolCall, DocumentToolResult } from './document';
 import {
-  ChevronDownIcon,
-  LoaderIcon,
   PencilEditIcon,
   SparklesIcon,
 } from './icons';
@@ -25,8 +22,6 @@ import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import { MessageEditor } from './message-editor';
 import { DocumentPreview } from './document-preview';
 import { MessageReasoning } from './message-reasoning';
-import { Card, CardHeader, CardTitle, } from './ui/card';
-import { Overview } from './overview';
 
 
 const PurePreviewMessage = ({
@@ -269,9 +264,9 @@ export const ThinkingMessage = () => {
           <div className="flex flex-col gap-4 text-muted-foreground">
             <p className="font-medium text-gray-700">Thinking...</p>
             <div className="space-y-2">
-              <div className="h-6 bg-gray-300 rounded w-3/4 animate-pulse"></div>
-              <div className="h-6 bg-gray-300 rounded w-2/4 animate-pulse"></div>
-              <div className="h-6 bg-gray-300 rounded w-5/6 animate-pulse"></div>
+              <div className="h-6 bg-gray-300 rounded w-3/4 animate-pulse" />
+              <div className="h-6 bg-gray-300 rounded w-2/4 animate-pulse" />
+              <div className="h-6 bg-gray-300 rounded w-5/6 animate-pulse" />
             </div>
           </div>
         </div>

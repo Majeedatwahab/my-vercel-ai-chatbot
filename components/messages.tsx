@@ -1,13 +1,10 @@
-import { ChatRequestOptions, Message, CreateMessage } from "ai";
+import type { ChatRequestOptions, Message, CreateMessage } from "ai";
 import { PreviewMessage, ThinkingMessage } from "./message";
 import { useScrollToBottom } from "./use-scroll-to-bottom";
-import { memo, useState } from "react";
-import { Vote } from "@/lib/db/schema";
+import { memo, } from "react";
+import type { Vote } from "@/lib/db/schema";
 import equal from "fast-deep-equal";
 import LearningCard from "@/components/LearningCard";
-import { Button } from "@/components/ui/button";
-import { Copy } from "lucide-react";
-import { Overview } from "./overview";
 import LearningPathwayCard from "@/components/LearningPathwayCard"
 interface MessagesProps {
   chatId: string;
@@ -143,12 +140,11 @@ if (learningPathwayData) {
                         )
                       : ["No related topics available."],
                   suggestedQuestions:
-                    learningCardData.explore &&
-                    learningCardData.explore.suggestedQuestions
+                    learningCardData.explore?.suggestedQuestions
                       ? learningCardData.explore.suggestedQuestions
                       : ["No suggested questions available."],
                   note:
-                    learningCardData.explore && learningCardData.explore.note
+                    learningCardData.explore?.note
                       ? learningCardData.explore.note
                       : ["No notes available."],
                 },

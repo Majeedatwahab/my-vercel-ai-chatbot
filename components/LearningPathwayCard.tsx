@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { ChatRequestOptions, Message, CreateMessage } from "ai";
+import type { ChatRequestOptions, Message, CreateMessage } from "ai";
 import { ChevronDown, ChevronUp, CheckCircle } from "lucide-react";
-
-
 
 interface LearningStep {
   title: string;
@@ -46,7 +44,6 @@ export default function LearningPathwayCard({
     Record<string, Set<number>>
   >({});
 
-
   const [selectedAnswers, setSelectedAnswers] = useState<
     Record<number, string>
   >({});
@@ -55,20 +52,20 @@ export default function LearningPathwayCard({
     setExpandedStep(expandedStep === index ? null : index);
   };
 
-const markStepAsCompleted = (index: number) => {
-  setCompletedSteps((prev) => {
-    const newCompletedSteps = new Set(prev[activeLevel] || []);
-    newCompletedSteps.add(index);
-    return { ...prev, [activeLevel]: newCompletedSteps };
-  });
-};
+  const markStepAsCompleted = (index: number) => {
+    setCompletedSteps((prev) => {
+      const newCompletedSteps = new Set(prev[activeLevel] || []);
+      newCompletedSteps.add(index);
+      return { ...prev, [activeLevel]: newCompletedSteps };
+    });
+  };
   const handleQuizAnswer = (index: number, answer: string) => {
     setSelectedAnswers((prev) => ({ ...prev, [index]: answer }));
   };
 
-const activeSteps = Array.isArray(levels?.[activeLevel])
-  ? levels[activeLevel]
-  : [];
+  const activeSteps = Array.isArray(levels?.[activeLevel])
+    ? levels[activeLevel]
+    : [];
 
   return (
     <div className="w-full max-w-2xl p-6 bg-white rounded-2xl shadow-lg border m-auto flex flex-col items-center">
@@ -79,6 +76,7 @@ const activeSteps = Array.isArray(levels?.[activeLevel])
         {levels &&
           Object.keys(levels).map((level) => (
             <button
+            type="button"
               key={level}
               className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                 activeLevel === level
@@ -104,18 +102,19 @@ const activeSteps = Array.isArray(levels?.[activeLevel])
                   : "border-gray-300"
               }`}
             >
-              <div
-                className="flex justify-between items-center cursor-pointer"
-                onClick={() => toggleStep(index)}
-              >
-                <h3 className="text-lg font-semibold text-gray-800 flex items-center">
-                  {completedSteps[activeLevel]?.has(index) && (
-                    <CheckCircle className="text-green-600 mr-2" size={18} />
-                  )}
-
-                  {step.title}
-                </h3>
-                {expandedStep === index ? <ChevronUp /> : <ChevronDown />}
+              <div>
+                <button
+                  className="flex justify-between items-center w-full cursor-pointer"
+                  onClick={() => toggleStep(index)}
+                >
+                  <h3 className="text-lg font-semibold text-gray-800 flex items-center">
+                    {completedSteps[activeLevel]?.has(index) && (
+                      <CheckCircle className="text-green-600 mr-2" size={18} />
+                    )}
+                    {step.title}
+                  </h3>
+                  {expandedStep === index ? <ChevronUp /> : <ChevronDown />}
+                </button>
               </div>
 
               {expandedStep === index && (
@@ -185,7 +184,7 @@ const activeSteps = Array.isArray(levels?.[activeLevel])
                               key={index}
                               className={`block w-full p-2 mt-1 text-left rounded-lg border ${
                                 selectedAnswers[index] === option
-                                  ? option === step.quiz!.answer
+                                  ? option === step.quiz?.answer
                                     ? "bg-green-500 text-white"
                                     : "bg-red-500 text-white"
                                   : "bg-white text-gray-800"
@@ -200,6 +199,7 @@ const activeSteps = Array.isArray(levels?.[activeLevel])
                     )}
                   </ul>
                   <button
+                    type="button"
                     onClick={() => markStepAsCompleted(index)}
                     className="mt-3 px-4 py-2 bg-green-600 text-white rounded-lg text-sm hover:bg-green-700 transition-all duration-200"
                     disabled={completedSteps[activeLevel]?.has(index)}

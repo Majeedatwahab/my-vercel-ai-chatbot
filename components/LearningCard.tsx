@@ -129,7 +129,7 @@ export default function LearningCard({
       <Card className="bg-white p-4 rounded-lg text-black">
         {activeTab === "Overview" && (
           <div>
-            <div className="border border-4 border-black rounded-md p-4">
+            <div className=" border-4 border-black rounded-md p-4">
               <h2 className="text-lg font-bold">Description</h2>
               <p className="mt-2">{learningContent.overview}</p>
             </div>
@@ -141,7 +141,7 @@ export default function LearningCard({
                 ))}
               </ul>
             </div>
-            <div className="border border-4 border-black rounded-md p-4">
+            <div className="border-4 border-black rounded-md p-4">
               <h3 className="mt-4 font-bold text-xl">Key Terminologies</h3>
               <ul className="list-disc pl-5 mt-2">
                 {(Array.isArray(learningContent.keyTerminologies)
@@ -168,8 +168,7 @@ export default function LearningCard({
         )}
 
         {activeTab === "Concepts" && (
-          <>
-            <div className="border border-4 border-black rounded-md p-4">
+          <div className=" border-4 border-black rounded-md p-4">
               <ul className="list-disc pl-5 mt-2">
                 {(Array.isArray(learningContent.concepts)
                   ? learningContent.concepts
@@ -182,12 +181,11 @@ export default function LearningCard({
                 ))}
               </ul>
             </div>
-          </>
         )}
 
         {activeTab === "Explore" && (
           <div>
-            <div className="border border-4 border-black rounded-md p-4">
+            <div className=" border-4 border-black rounded-md p-4">
               <h3 className="mt-2 font-bold text-xl">Related Topics:</h3>
 
               <ul className="list-disc pl-5">
