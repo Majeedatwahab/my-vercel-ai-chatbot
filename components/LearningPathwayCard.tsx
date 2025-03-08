@@ -76,7 +76,7 @@ export default function LearningPathwayCard({
         {levels &&
           Object.keys(levels).map((level) => (
             <button
-            type="button"
+              type="button"
               key={level}
               className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                 activeLevel === level
@@ -95,7 +95,7 @@ export default function LearningPathwayCard({
         {activeSteps.length > 0 ? (
           activeSteps.map((step, index) => (
             <div
-              key={index}
+              key={step.title}
               className={`p-4 border rounded-lg mt-2 bg-gray-100 transition-all duration-300 ${
                 completedSteps[activeLevel]?.has(index)
                   ? "border-green-500"
@@ -104,6 +104,7 @@ export default function LearningPathwayCard({
             >
               <div>
                 <button
+                  type="button"
                   className="flex justify-between items-center w-full cursor-pointer"
                   onClick={() => toggleStep(index)}
                 >
@@ -121,8 +122,8 @@ export default function LearningPathwayCard({
                 <div className="mt-2">
                   <h4 className="font-medium">Learning Objectives:</h4>
                   <ul className="list-disc ml-5 text-gray-600">
-                    {step.learningObjectives.map((obj, idx) => (
-                      <li key={idx}>{obj}</li>
+                    {step.learningObjectives.map((obj) => (
+                      <li key={obj}>{obj}</li>
                     ))}
                   </ul>
 
@@ -131,8 +132,8 @@ export default function LearningPathwayCard({
                   </p>
                   {step.content.examples && (
                     <pre className="bg-gray-200 p-3 rounded-md mt-2 overflow-x-auto">
-                      {step.content.examples.map((example, idx) => (
-                        <code key={idx} className="block mb-2">
+                      {step.content.examples.map((example) => (
+                        <code key={example} className="block mb-2">
                           {example}
                         </code>
                       ))}
@@ -141,8 +142,8 @@ export default function LearningPathwayCard({
 
                   {step.content.codeSnippets && (
                     <pre className="bg-gray-800 text-white p-3 rounded-md mt-2 overflow-x-auto">
-                      {step.content.codeSnippets.map((snippet, idx) => (
-                        <code key={idx} className="block mb-2">
+                      {step.content.codeSnippets.map((snippet) => (
+                        <code key={snippet} className="block mb-2">
                           {snippet}
                         </code>
                       ))}
@@ -151,16 +152,16 @@ export default function LearningPathwayCard({
 
                   <h4 className="font-medium mt-3">Key Takeaways:</h4>
                   <ul className="list-disc ml-5 text-gray-600">
-                    {step.keyTakeaways.map((takeaway, idx) => (
-                      <li key={idx}>{takeaway}</li>
+                    {step.keyTakeaways.map((takeaway) => (
+                      <li key={takeaway}>{takeaway}</li>
                     ))}
                   </ul>
 
                   <h4 className="font-medium mt-3">Further Reading:</h4>
                   <ul className="mt-2 text-blue-600 text-sm">
                     {step.resources.length > 0 ? (
-                      step.resources.map((link, idx) => (
-                        <li key={idx}>
+                      step.resources.map((link) => (
+                        <li key={link}>
                           <a
                             href={link}
                             target="_blank"
@@ -179,9 +180,10 @@ export default function LearningPathwayCard({
                         <h4 className="font-medium">Quiz:</h4>
                         <p className="text-gray-800">{step.quiz.question}</p>
                         <div className="mt-2">
-                          {step.quiz.options.map((option, index) => (
+                          {step.quiz.options.map((option) => (
                             <button
-                              key={index}
+                              type="button"
+                              key={option}
                               className={`block w-full p-2 mt-1 text-left rounded-lg border ${
                                 selectedAnswers[index] === option
                                   ? option === step.quiz?.answer

@@ -136,8 +136,8 @@ export default function LearningCard({
             <div className="">
               <h3 className="mt-5 font-bold text-xl">Prerequisites:</h3>
               <ul className="list-disc pl-5">
-                {learningContent.prerequisites.map((item, index) => (
-                  <li key={index}>{item}</li>
+                {learningContent.prerequisites.map((item) => (
+                  <li key={item}>{item}</li>
                 ))}
               </ul>
             </div>
@@ -147,8 +147,8 @@ export default function LearningCard({
                 {(Array.isArray(learningContent.keyTerminologies)
                   ? learningContent.keyTerminologies
                   : []
-                ).map((terminology, index) => (
-                  <div key={index} className="mb-4 bg-gray-300 rounded-md p-4">
+                ).map((terminology) => (
+                  <div key={terminology.title} className="mb-4 bg-gray-300 rounded-md p-4">
                     <h3 className="font-bold text-lg">
                       {typeof terminology === "string"
                         ? terminology
@@ -173,8 +173,8 @@ export default function LearningCard({
                 {(Array.isArray(learningContent.concepts)
                   ? learningContent.concepts
                   : []
-                ).map((concept, index) => (
-                  <div key={index} className="mb-4 bg-gray-300 rounded-md p-4">
+                ).map((concept) => (
+                  <div key={concept.title} className="mb-4 bg-gray-300 rounded-md p-4">
                     <h3 className="font-bold text-lg">{concept.title}</h3>
                     <p className="text-gray-700">{concept.description}</p>
                   </div>
@@ -190,8 +190,8 @@ export default function LearningCard({
 
               <ul className="list-disc pl-5">
                 <div className="w-2xs">
-                  {learningContent.explore.relatedTopics.map((topic, index) => (
-                    <Button className="m-1" key={index} variant={"secondary"} 
+                  {learningContent.explore.relatedTopics.map((topic) => (
+                    <Button className="m-1" key={topic} variant={"secondary"} 
                     >
                       {topic}
                     </Button>
@@ -218,8 +218,8 @@ export default function LearningCard({
               <h3 className="mt-4 font-bold text-xl">Suggested Questions:</h3>
               <ul className="list-decimal pl-5">
                 {learningContent.explore.suggestedQuestions.map(
-                  (question, index) => (
-                    <li key={index} className="m-2">
+                  (question) => (
+                    <li key={question} className="m-2">
                       {question}
                     </li>
                   )
