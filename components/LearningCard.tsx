@@ -9,7 +9,7 @@ interface Concept {
   description: string;
 }
 
-interface Terminologies{
+interface Terminologies {
   title: string;
   description: string;
 }
@@ -19,7 +19,7 @@ interface LearningCardProps {
   keyTerminologies: Terminologies[];
   overview: string;
   concepts: Concept[];
-  
+
   explore: {
     relatedTopics: string[];
     suggestedQuestions: string[];
@@ -38,25 +38,21 @@ const SAMPLE: LearningCardProps = {
       title: "Descriptive Statistics",
       description:
         "Descriptive statistics provide a snapshot of the data. They include measures of central tendency (mean, median, mode), dispersion (range, variance, standard deviation), and shape (skewness, kurtosis).",
-      
     },
     {
       title: "Inferential Statistics",
       description:
         "Inferential statistics uses statistical methods to draw conclusions about a population from a sample. It assumes that the sample is representative of the population.",
-      
     },
     {
       title: "Data Cleaning",
       description:
         "Data cleaning involves identifying and addressing inconsistencies, missing values, and outliers in the data. It helps to improve the quality and reliability of the data.",
-     
     },
     {
       title: "Data Visualization",
       description:
         "Data visualization is the process of presenting data in a visual format, such as graphs, charts, or maps. It helps to communicate information effectively and make complex data more understandable.",
-      
     },
   ],
   explore: {
@@ -92,10 +88,9 @@ const SAMPLE: LearningCardProps = {
       description:
         "A statistical measure that describes the relationship between two variables",
     },
-
   ],
 };
- 
+
 export default function LearningCard({
   learningContent = SAMPLE,
 }: {
@@ -148,7 +143,10 @@ export default function LearningCard({
                   ? learningContent.keyTerminologies
                   : []
                 ).map((terminology) => (
-                  <div key={terminology.title} className="mb-4 bg-gray-300 rounded-md p-4">
+                  <div
+                    key={terminology.title}
+                    className="mb-4 bg-gray-300 rounded-md p-4"
+                  >
                     <h3 className="font-bold text-lg">
                       {typeof terminology === "string"
                         ? terminology
@@ -169,18 +167,21 @@ export default function LearningCard({
 
         {activeTab === "Concepts" && (
           <div className=" border-4 border-black rounded-md p-4">
-              <ul className="list-disc pl-5 mt-2">
-                {(Array.isArray(learningContent.concepts)
-                  ? learningContent.concepts
-                  : []
-                ).map((concept) => (
-                  <div key={concept.title} className="mb-4 bg-gray-300 rounded-md p-4">
-                    <h3 className="font-bold text-lg">{concept.title}</h3>
-                    <p className="text-gray-700">{concept.description}</p>
-                  </div>
-                ))}
-              </ul>
-            </div>
+            <ul className="list-disc pl-5 mt-2">
+              {(Array.isArray(learningContent.concepts)
+                ? learningContent.concepts
+                : []
+              ).map((concept) => (
+                <div
+                  key={concept.title}
+                  className="mb-4 bg-gray-300 rounded-md p-4"
+                >
+                  <h3 className="font-bold text-lg">{concept.title}</h3>
+                  <p className="text-gray-700">{concept.description}</p>
+                </div>
+              ))}
+            </ul>
+          </div>
         )}
 
         {activeTab === "Explore" && (
@@ -191,8 +192,7 @@ export default function LearningCard({
               <ul className="list-disc pl-5">
                 <div className="w-2xs">
                   {learningContent.explore.relatedTopics.map((topic) => (
-                    <Button className="m-1" key={topic} variant={"secondary"} 
-                    >
+                    <Button className="m-1" key={topic} variant={"secondary"}>
                       {topic}
                     </Button>
                   ))}
@@ -217,13 +217,11 @@ export default function LearningCard({
             <div className="">
               <h3 className="mt-4 font-bold text-xl">Suggested Questions:</h3>
               <ul className="list-decimal pl-5">
-                {learningContent.explore.suggestedQuestions.map(
-                  (question) => (
-                    <li key={question} className="m-2">
-                      {question}
-                    </li>
-                  )
-                )}
+                {learningContent.explore.suggestedQuestions.map((question) => (
+                  <li key={question} className="m-2">
+                    {question}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>

@@ -1,4 +1,6 @@
 import type { InferSelectModel } from "drizzle-orm";
+import { roadmaps } from "./roadmaps";
+import { roadmapSteps } from "./roadmap_steps";
 import {
   pgTable,
   varchar,
@@ -65,51 +67,45 @@ export const vote = pgTable(
 
 export type Vote = InferSelectModel<typeof vote>;
 
-export const document = pgTable(
-  "Document",
-  {
-    id: uuid("id").notNull().defaultRandom(),
-    createdAt: timestamp("createdAt").notNull(),
-    title: text("title").notNull(),
-    content: text("content"),
-    kind: varchar("text", { enum: ["text", "code", "image", "sheet"] })
-      .notNull()
-      .default("text"),
-    userId: uuid("userId")
-      .notNull()
-      .references(() => user.id),
-  },
-  (table) => {
-    return {
-      pk: primaryKey({ columns: [table.id, table.createdAt] }),
-    };
-  }
-);
+export const document = pgTable("Document", {
+  id: uuid("id").primaryKey().notNull().defaultRandom(),
+  createdAt: timestamp("createdAt").notNull(),
+  title: text("title").notNull(),
+  content: text("content"),
+  kind: varchar("kind", { enum: ["text", "code", "image", "sheet"] }) // ✅ Fixed column name
+    .notNull()
+    .default("text"),
+  userId: uuid("userId")
+    .notNull()
+    .references(() => user.id),
+});
 
 export type Document = InferSelectModel<typeof document>;
 
-export const suggestion = pgTable(
-  "Suggestion",
-  {
-    id: uuid("id").notNull().defaultRandom(),
-    documentId: uuid("documentId").notNull(),
-    documentCreatedAt: timestamp("documentCreatedAt").notNull(),
-    originalText: text("originalText").notNull(),
-    suggestedText: text("suggestedText").notNull(),
-    description: text("description"),
-    isResolved: boolean("isResolved").notNull().default(false),
-    userId: uuid("userId")
-      .notNull()
-      .references(() => user.id),
-    createdAt: timestamp("createdAt").notNull(),
-  },
-  (table) => ({
-    pk: primaryKey({ columns: [table.id] }),
-    documentRef: foreignKey({
-      columns: [table.documentId, table.documentCreatedAt],
-      foreignColumns: [document.id, document.createdAt],
-    }),
-  })
-);
+export const suggestion = pgTable("Suggestion", {
+  id: uuid("id").primaryKey().notNull().defaultRandom(),
+  documentId: uuid("documentId")
+    .notNull()
+    .references(() => document.id), // ✅ Fixed FK reference
+  originalText: text("originalText").notNull(),
+  suggestedText: text("suggestedText").notNull(),
+  description: text("description"),
+  isResolved: boolean("isResolved").notNull().default(false),
+  userId: uuid("userId")
+    .notNull()
+    .references(() => user.id),
+  createdAt: timestamp("createdAt").notNull(),
+});
 
 export type Suggestion = InferSelectModel<typeof suggestion>;
+
+export const schema = {
+  roadmaps,
+  roadmapSteps,
+  user,
+  chat,
+  vote,
+  document,
+  suggestion,
+  message,
+};

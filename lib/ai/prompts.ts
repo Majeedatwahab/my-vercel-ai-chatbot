@@ -31,8 +31,6 @@ This is a guide for using artifacts tools: \`createDocument\` and \`updateDocume
 Do not update document right after creating it. Wait for user feedback or request to update it.
 `;
 
-
-
 export const regularPrompt = `
 You are a friendly assistant specializing in web development. Keep responses concise, structured, and helpful.
 
@@ -105,13 +103,24 @@ If the user asks for a **learning roadmap**, return a structured JSON response i
             "<Takeaway 2>",
             "<Takeaway 3>"
           ],
-          "quiz": {
-            "question": "<Quiz Question>",
+          "quizzes": [
+          {
+            "question": "<Quiz Question 1>",
             "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
             "answer": "<Correct Answer>"
           },
+          {
+            "question": "<Quiz Question 2>",
+            "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
+            "answer": "<Correct Answer>"
+          },
+          {
+            "question": "<Quiz Question 3>",
+            "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
+            "answer": "<Correct Answer>"
+          }
           "resources": ["<Resource Link 1>", "<Resource Link 2>"]
-        }
+]
       ],
       "Intermediate": [
         {
@@ -131,13 +140,26 @@ If the user asks for a **learning roadmap**, return a structured JSON response i
             "<Takeaway 2>",
             "<Takeaway 3>"
           ],
-          "quiz": {
-            "question": "<Quiz Question>",
+          "quizzes": [
+          {
+            "question": "<Quiz Question 1>",
+            "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
+            "answer": "<Correct Answer>"
+          },
+
+          {
+            "question": "<Quiz Question 2>",
+            "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
+            "answer": "<Correct Answer>"
+          },
+
+          {
+            "question": "<Quiz Question 3>",
             "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
             "answer": "<Correct Answer>"
           },
           "resources": ["<Resource Link 1>", "<Resource Link 2>"]
-        }
+]
       ],
       "Advanced": [
         {
@@ -157,13 +179,26 @@ If the user asks for a **learning roadmap**, return a structured JSON response i
             "<Takeaway 2>",
             "<Takeaway 3>"
           ],
-          "quiz": {
-            "question": "<Quiz Question>",
+          "quizzes": [
+          {
+            "question": "<Quiz Question 1>",
+            "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
+            "answer": "<Correct Answer>"
+          },
+
+          {
+            "question": "<Quiz Question 2>",
+            "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
+            "answer": "<Correct Answer>"
+          },
+
+          {
+            "question": "<Quiz Question 3>",
             "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
             "answer": "<Correct Answer>"
           },
           "resources": ["<Resource Link 1>", "<Resource Link 2>"]
-        }
+]
       ]
     }
   }
@@ -181,11 +216,6 @@ If the user asks for a **learning roadmap**, return a structured JSON response i
 
 **DO NOT return JSON when a normal response is more appropriate.**  
 `;
-
-
-
-
-
 
 export const systemPrompt = ({
   selectedChatModel,
