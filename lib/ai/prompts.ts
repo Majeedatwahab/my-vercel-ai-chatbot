@@ -51,25 +51,88 @@ If the user asks about a specific **topic** (e.g., "What is React?"), return thi
   "learningCard": {
     "title": "Introduction to Web Development",
     "overview": "Web development involves building and maintaining websites and web applications. It encompasses both frontend and backend development.",
+    "difficulty": "Beginner",
+    "estimatedTime": "30 minutes",
     "concepts": [
       {
         "title": "HTML",
-        "description": "Structures the content of a webpage (headings, paragraphs, images, etc.)"
+        "description": "Structures the content of a webpage (headings, paragraphs, images, etc.)",
+        "examples": [
+          "Creating a basic webpage structure with headers and paragraphs",
+          "Adding images and links to a webpage"
+        ],
+        "codeSnippets": [
+          {
+            "title": "Basic HTML Structure",
+            "language": "html",
+            "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>My First Webpage</title>\n</head>\n<body>\n  <h1>Hello World!</h1>\n  <p>This is a paragraph.</p>\n</body>\n</html>",
+            "explanation": "This code creates a simple HTML document with a title, heading, and paragraph."
+          }
+        ]
+      },
+      {
+        "title": "CSS",
+        "description": "Styles the HTML elements to control their appearance (colors, layout, fonts, etc.)",
+        "examples": [
+          "Changing text color and font size",
+          "Creating responsive layouts with flexbox"
+        ]
+      }
+    ],
+    "commonMistakes": [
+      {
+        "mistake": "Not closing HTML tags properly",
+        "correction": "Always ensure each opening tag has a corresponding closing tag, or use self-closing tags where appropriate."
+      },
+      {
+        "mistake": "Using inline styles excessively",
+        "correction": "Prefer external CSS files for better maintainability and separation of concerns."
+      }
+    ],
+    "practiceExercises": [
+      {
+        "title": "Create a Simple Profile Page",
+        "description": "Build a personal profile page with your name, photo, and short bio using HTML and CSS.",
+        "difficulty": "Easy",
+        "hints": ["Start with the basic HTML structure", "Use CSS to style your page"],
+        "solution": "Create an index.html file with appropriate HTML tags and a styles.css file for styling."
       }
     ],
     "explore": {
-      "relatedTopics": ["Simplify", "Explore Further", "Go Deeper"],
-      "suggestedQuestions": ["What is responsive design?", "How does React differ from Vue?"]
+      "relatedTopics": ["Simplify: HTML Basics", "Explore Further: CSS Layouts", "Go Deeper: JavaScript Fundamentals"],
+      "suggestedQuestions": ["What is responsive design?", "How does React differ from Vue?"],
+      "note": ["I've created a Learning Card for Web Development. Feel free to ask any follow-up questions about specific concepts."]
     },
     "prerequisites": ["Basic computer literacy", "Familiarity with internet browsers"],
     "keyTerminologies": [
       {
         "title": "DOM (Document Object Model)",
-        "description": "Defines the structure of web documents."
+        "description": "Defines the structure of web documents as a tree of objects.",
+        "examples": ["Accessing and modifying page elements with JavaScript"]
       },
       {
         "title": "Client-side",
-        "description": "Operations performed on the user's browser."
+        "description": "Operations performed on the user's browser.",
+        "examples": ["JavaScript running in the browser to validate a form"]
+      },
+      {
+        "title": "Server-side",
+        "description": "Operations performed on the web server.",
+        "examples": ["Processing form submissions and storing data in a database"]
+      }
+    ],
+    "resources": [
+      {
+        "title": "MDN Web Docs",
+        "type": "Documentation",
+        "url": "https://developer.mozilla.org/",
+        "description": "Comprehensive documentation for web technologies"
+      },
+      {
+        "title": "CSS Tricks",
+        "type": "Tutorial",
+        "url": "https://css-tricks.com/",
+        "description": "Helpful articles and tutorials on CSS techniques"
       }
     ]
   }
@@ -83,124 +146,237 @@ If the user asks for a **learning roadmap**, return a structured JSON response i
 {
   "learningPathway": {
     "title": "<Roadmap Title>",
-    "description": "<Brief explanation of the learning pathway>",
+    "description": "<Comprehensive explanation of the learning pathway, including its purpose, target audience, and expected outcomes>",
+   
+    "prerequisites": [
+      "<Prerequisite 1>",
+      "<Prerequisite 2>"
+    ],
     "levels": {
       "Beginner": [
         {
           "title": "<Beginner Step 1>",
+         
           "learningObjectives": [
-            "<Objective 1>",
-            "<Objective 2>",
-            "<Objective 3>"
+            "<Detailed Objective 1>",
+            "<Detailed Objective 2>",
+            "<Detailed Objective 3>"
           ],
           "content": {
-            "explanation": "<Detailed Explanation>",
-            "examples": ["<Example 1>", "<Example 2>"],
-            "codeSnippets": ["<Code Snippet 1>", "<Code Snippet 2>"]
-          },
+            "introduction": "<Brief introduction to this learning step>",
+            "explanation": "<Comprehensive, detailed explanation with multiple paragraphs>",
+        
+            "examples": [
+              {
+                "title": "<Example 1 Title>",
+                "description": "<Detailed description of Example 1>",
+                "code": "<If applicable, code example>"
+              },
+              {
+                "title": "<Example 2 Title>",
+                "description": "<Detailed description of Example 2>",
+                "code": "<If applicable, code example>"
+              }
+            ],
+},
+       
           "keyTakeaways": [
-            "<Takeaway 1>",
-            "<Takeaway 2>",
-            "<Takeaway 3>"
+            "<Detailed Takeaway 1>",
+            "<Detailed Takeaway 2>",
+            "<Detailed Takeaway 3>"
           ],
+         
           "quizzes": [
-          {
-            "question": "<Quiz Question 1>",
-            "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
-            "answer": "<Correct Answer>"
-          },
-          {
-            "question": "<Quiz Question 2>",
-            "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
-            "answer": "<Correct Answer>"
-          },
-          {
-            "question": "<Quiz Question 3>",
-            "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
-            "answer": "<Correct Answer>"
-          }
-          "resources": ["<Resource Link 1>", "<Resource Link 2>"]
-]
-      ],
+            {
+              "question": "<Detailed Quiz Question 1>",
+              "options": ["<Option 1>", "<Option 2>", "<Option 3>", "<Option 4>"],
+              "answer": "<Correct Answer>",
+              "explanation": "<Explanation of why this answer is correct>"
+            },
+            {
+              "question": "<Detailed Quiz Question 2>",
+              "options": ["<Option 1>", "<Option 2>", "<Option 3>", "<Option 4>"],
+              "answer": "<Correct Answer>",
+              "explanation": "<Explanation of why this answer is correct>"
+            },
+            {
+              "question": "<Detailed Quiz Question 3>",
+              "options": ["<Option 1>", "<Option 2>", "<Option 3>", "<Option 4>"],
+              "answer": "<Correct Answer>",
+              "explanation": "<Explanation of why this answer is correct>"
+            }
+          ],
+          "resources": [
+            {
+              "title": "<Resource 1 Title>",
+              "type": "<Article/Video/Book/Tutorial>",
+              "url": "<Resource URL>",
+              "description": "<Brief description of the resource>"
+            },
+            {
+              "title": "<Resource 2 Title>",
+              "type": "<Article/Video/Book/Tutorial>",
+              "url": "<Resource URL>",
+              "description": "<Brief description of the resource>"
+            }
+          ],
+          
       "Intermediate": [
         {
           "title": "<Intermediate Step 1>",
+         
           "learningObjectives": [
-            "<Objective 1>",
-            "<Objective 2>",
-            "<Objective 3>"
+            "<Detailed Objective 1>",
+            "<Detailed Objective 2>",
+            "<Detailed Objective 3>"
           ],
           "content": {
-            "explanation": "<Detailed Explanation>",
-            "examples": ["<Example 1>", "<Example 2>"],
-            "codeSnippets": ["<Code Snippet 1>", "<Code Snippet 2>"]
+            "introduction": "<Brief introduction to this learning step>",
+            "explanation": "<Comprehensive, detailed explanation with multiple paragraphs>",
+          
+            "examples": [
+              {
+                "title": "<Example 1 Title>",
+                "description": "<Detailed description of Example 1>",
+                "code": "<If applicable, code example>"
+              },
+              {
+                "title": "<Example 2 Title>",
+                "description": "<Detailed description of Example 2>",
+                "code": "<If applicable, code example>"
+              }
+            ],
+          
+            
           },
           "keyTakeaways": [
-            "<Takeaway 1>",
-            "<Takeaway 2>",
-            "<Takeaway 3>"
+            "<Detailed Takeaway 1>",
+            "<Detailed Takeaway 2>",
+            "<Detailed Takeaway 3>"
           ],
+          
           "quizzes": [
-          {
-            "question": "<Quiz Question 1>",
-            "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
-            "answer": "<Correct Answer>"
-          },
-
-          {
-            "question": "<Quiz Question 2>",
-            "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
-            "answer": "<Correct Answer>"
-          },
-
-          {
-            "question": "<Quiz Question 3>",
-            "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
-            "answer": "<Correct Answer>"
-          },
-          "resources": ["<Resource Link 1>", "<Resource Link 2>"]
-]
+            {
+              "question": "<Detailed Quiz Question 1>",
+              "options": ["<Option 1>", "<Option 2>", "<Option 3>", "<Option 4>"],
+              "answer": "<Correct Answer>",
+              "explanation": "<Explanation of why this answer is correct>"
+            },
+            {
+              "question": "<Detailed Quiz Question 2>",
+              "options": ["<Option 1>", "<Option 2>", "<Option 3>", "<Option 4>"],
+              "answer": "<Correct Answer>",
+              "explanation": "<Explanation of why this answer is correct>"
+            },
+            {
+              "question": "<Detailed Quiz Question 3>",
+              "options": ["<Option 1>", "<Option 2>", "<Option 3>", "<Option 4>"],
+              "answer": "<Correct Answer>",
+              "explanation": "<Explanation of why this answer is correct>"
+            }
+          ],
+          "resources": [
+            {
+              "title": "<Resource 1 Title>",
+              "type": "<Article/Video/Book/Tutorial>",
+              "url": "<Resource URL>",
+              "description": "<Brief description of the resource>"
+            },
+            {
+              "title": "<Resource 2 Title>",
+              "type": "<Article/Video/Book/Tutorial>",
+              "url": "<Resource URL>",
+              "description": "<Brief description of the resource>"
+            }
+          ],
+         
+        }
       ],
       "Advanced": [
         {
           "title": "<Advanced Step 1>",
+        
           "learningObjectives": [
-            "<Objective 1>",
-            "<Objective 2>",
-            "<Objective 3>"
+            "<Detailed Objective 1>",
+            "<Detailed Objective 2>",
+            "<Detailed Objective 3>"
           ],
           "content": {
-            "explanation": "<Detailed Explanation>",
-            "examples": ["<Example 1>", "<Example 2>"],
-            "codeSnippets": ["<Code Snippet 1>", "<Code Snippet 2>"]
+            "introduction": "<Brief introduction to this learning step>",
+            "explanation": "<Comprehensive, detailed explanation with multiple paragraphs>",
+            
+            "examples": [
+              {
+                "title": "<Example 1 Title>",
+                "description": "<Detailed description of Example 1>",
+                "code": "<If applicable, code example>"
+              },
+              {
+                "title": "<Example 2 Title>",
+                "description": "<Detailed description of Example 2>",
+                "code": "<If applicable, code example>"
+              }
+            ],
+          
+           
           },
           "keyTakeaways": [
-            "<Takeaway 1>",
-            "<Takeaway 2>",
-            "<Takeaway 3>"
+            "<Detailed Takeaway 1>",
+            "<Detailed Takeaway 2>",
+            "<Detailed Takeaway 3>"
           ],
+         
           "quizzes": [
-          {
-            "question": "<Quiz Question 1>",
-            "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
-            "answer": "<Correct Answer>"
-          },
-
-          {
-            "question": "<Quiz Question 2>",
-            "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
-            "answer": "<Correct Answer>"
-          },
-
-          {
-            "question": "<Quiz Question 3>",
-            "options": ["<Option 1>", "<Option 2>", "<Option 3>"],
-            "answer": "<Correct Answer>"
-          },
-          "resources": ["<Resource Link 1>", "<Resource Link 2>"]
-]
+            {
+              "question": "<Detailed Quiz Question 1>",
+              "options": ["<Option 1>", "<Option 2>", "<Option 3>", "<Option 4>"],
+              "answer": "<Correct Answer>",
+              "explanation": "<Explanation of why this answer is correct>"
+            },
+            {
+              "question": "<Detailed Quiz Question 2>",
+              "options": ["<Option 1>", "<Option 2>", "<Option 3>", "<Option 4>"],
+              "answer": "<Correct Answer>",
+              "explanation": "<Explanation of why this answer is correct>"
+            },
+            {
+              "question": "<Detailed Quiz Question 3>",
+              "options": ["<Option 1>", "<Option 2>", "<Option 3>", "<Option 4>"],
+              "answer": "<Correct Answer>",
+              "explanation": "<Explanation of why this answer is correct>"
+            }
+          ],
+          "resources": [
+            {
+              "title": "<Resource 1 Title>",
+              "type": "<Article/Video/Book/Tutorial>",
+              "url": "<Resource URL>",
+              "description": "<Brief description of the resource>"
+            },
+            {
+              "title": "<Resource 2 Title>",
+              "type": "<Article/Video/Book/Tutorial>",
+              "url": "<Resource URL>",
+              "description": "<Brief description of the resource>"
+            }
+          ],
+         
+        }
       ]
-    }
+    },
+   
+    "furtherLearning": [
+      {
+        "topic": "<Related Topic 1>",
+        "description": "<Brief description of how this topic relates to the pathway>",
+        "resources": ["<Resource 1>", "<Resource 2>"]
+      },
+      {
+        "topic": "<Related Topic 2>",
+        "description": "<Brief description of how this topic relates to the pathway>",
+        "resources": ["<Resource 1>", "<Resource 2>"]
+      }
+    ]
   }
 }
 
