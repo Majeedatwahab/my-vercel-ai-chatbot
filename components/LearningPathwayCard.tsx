@@ -337,7 +337,7 @@ export default function LearningPathwayCard({
             </div>
             <button
               onClick={resetProgress}
-              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+              className="bg-black p-2 rounded-md text-lg font-semibold text-white hover:text-red-500"
             >
               Reset Progress
             </button>

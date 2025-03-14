@@ -241,7 +241,7 @@ export default function LearningCard({
         </div>
       </div>
 
-      {/* Custom Tab Navigation */}
+
       <div className="flex space-x-2 mb-6 overflow-x-auto pb-2">
         <Button
           variant={activeTab === "Overview" ? "default" : "outline"}

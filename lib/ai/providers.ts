@@ -8,7 +8,7 @@ import {
 } from "ai";
 
 export const DEFAULT_CHAT_MODEL: string = "chat-model-small";
-
+// need to upgrade model to gemini-2.0 since these models will become available in may 2025 and september 2025
 export const myProvider = customProvider({
   languageModels: {
     "chat-model-small": google("gemini-1.5-pro-latest"),

@@ -97,9 +97,6 @@ if (learningPathwayData) {
   }
   // Render LearningPathwayCard if AI generated it
   return (
-  
-
-
 
     <LearningPathwayCard
       
