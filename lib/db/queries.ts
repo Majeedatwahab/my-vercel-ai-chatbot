@@ -238,7 +238,7 @@ export async function deleteDocumentsByIdAfterTimestamp({
       .where(
         and(
           eq(suggestion.documentId, id),
-          gt(suggestion.documentCreatedAt, timestamp)
+          gt(suggestion.createdAt, timestamp)
         )
       );
 

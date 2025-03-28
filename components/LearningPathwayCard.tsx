@@ -688,7 +688,7 @@ export default function LearningPathwayCard({
                       className={`mt-4 px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300 w-full ${
                         completedSteps[activeLevel]?.has(index)
                           ? "bg-green-100 text-green-700 border border-green-300"
-                          : "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                          : "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md hover:shadow-lg hover:-translate-y-0.5"
                       }`}
                       whileHover={{
                         scale: completedSteps[activeLevel]?.has(index)
