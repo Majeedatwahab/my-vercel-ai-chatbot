@@ -291,8 +291,8 @@ export default function LearningPathwayCard({
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {Array.from({ length: 50 }).map((_, i) => (
             <motion.div
-              key={i}
-              className="absolute w-2 h-2 rounded-full"
+              key={crypto.randomUUID()} // Generates a unique key for each element
+              className="absolute size-2 rounded-full"
               style={{
                 backgroundColor: [
                   "#FFD700",
@@ -336,6 +336,7 @@ export default function LearningPathwayCard({
               {progress.percentage}% Complete
             </div>
             <button
+              type="reset"
               onClick={resetProgress}
               className="bg-black p-2 rounded-md text-lg font-semibold text-white hover:text-red-500"
             >
@@ -354,7 +355,7 @@ export default function LearningPathwayCard({
             />
 
             {/* Progress Milestones */}
-            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-between px-2 pointer-events-none">
+            <div className="absolute top-0 left-0 size-full flex items-center justify-between px-2 pointer-events-none">
               {[25, 50, 75].map((milestone) => (
                 <div
                   key={milestone}
@@ -479,7 +480,7 @@ export default function LearningPathwayCard({
                         <Trophy size={18} />
                       </motion.div>
                     ) : (
-                      <div className="w-5 h-5 rounded-full bg-gray-200 flex items-center justify-center mr-2 text-gray-600 text-xs font-bold">
+                      <div className="size-5 rounded-full bg-gray-200 flex items-center justify-center mr-2 text-gray-600 text-xs font-bold">
                         {index + 1}
                       </div>
                     )}
@@ -743,16 +744,22 @@ export default function LearningPathwayCard({
                     Resources:
                   </h5>
                   <ul className="list-disc ml-5 text-sm text-blue-500 mt-1">
-                    {safeMap(item.resources, (resource, i) => (
-                      <li key={i}>
-                        <a
-                          href="#"
-                          className="hover:underline hover:text-blue-700 transition-colors"
-                        >
-                          {resource}
-                        </a>
-                      </li>
-                    ))}
+                    {safeMap(item.resources, (resource, i) => {
+                      const isValidUrl =
+                        resource.startsWith("http") || resource.startsWith("/");
+                      return (
+                        <li key={i}>
+                          <a
+                            href={isValidUrl ? resource : "#"}
+                            target={isValidUrl ? "_blank" : "_self"}
+                            rel={isValidUrl ? "noopener noreferrer" : undefined}
+                            className="hover:underline hover:text-blue-700 transition-colors"
+                          >
+                            {resource}
+                          </a>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               )}
