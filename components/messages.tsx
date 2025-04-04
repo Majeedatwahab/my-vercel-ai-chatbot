@@ -1,6 +1,7 @@
 import type { ChatRequestOptions, Message, CreateMessage } from "ai";
 import { PreviewMessage, ThinkingMessage } from "./message";
 import { useScrollToBottom } from "./use-scroll-to-bottom";
+import { Greeting } from "./greeting";
 import { memo, } from "react";
 import type { Vote } from "@/lib/db/schema";
 import equal from "fast-deep-equal";
@@ -43,6 +44,7 @@ function PureMessages({
       ref={messagesContainerRef}
       className="flex flex-col min-w-0 gap-6 flex-1 overflow-y-scroll pt-4"
     >
+      {messages.length === 0 && <Greeting />}
       {messages.map((message, index) => {
         let learningCardData = null;
         let learningPathwayData = null;
@@ -69,47 +71,44 @@ function PureMessages({
           }
         }
 
-if (learningPathwayData) {
-  async function append(
-    message: Message | CreateMessage,
-    chatRequestOptions?: ChatRequestOptions
-  ): Promise<string | null | undefined> {
-    try {
-      // Simulate an API call to append the message
-      const response = await fetch("/api/append-message", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message, chatRequestOptions }),
-      });
+        if (learningPathwayData) {
+          async function append(
+            message: Message | CreateMessage,
+            chatRequestOptions?: ChatRequestOptions
+          ): Promise<string | null | undefined> {
+            try {
+              // Simulate an API call to append the message
+              const response = await fetch("/api/append-message", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ message, chatRequestOptions }),
+              });
 
-      if (!response.ok) {
-        throw new Error("Failed to append message");
-      }
+              if (!response.ok) {
+                throw new Error("Failed to append message");
+              }
 
-      const result = await response.json();
-      return result.messageId;
-    } catch (error) {
-      console.error("Error appending message:", error);
-      return null;
-    }
-  }
-  // Render LearningPathwayCard if AI generated it
-  return (
-
-    <LearningPathwayCard
-      
-      key={message.id}
-      chatId={chatId}
-      append={append}
-      title={learningPathwayData?.title ?? "No Title"}
-      description={learningPathwayData?.description ?? "No Description"}
-      levels={learningPathwayData?.levels ?? {}}
-      
-    />
-  );
-}
+              const result = await response.json();
+              return result.messageId;
+            } catch (error) {
+              console.error("Error appending message:", error);
+              return null;
+            }
+          }
+          // Render LearningPathwayCard if AI generated it
+          return (
+            <LearningPathwayCard
+              key={message.id}
+              chatId={chatId}
+              append={append}
+              title={learningPathwayData?.title ?? "No Title"}
+              description={learningPathwayData?.description ?? "No Description"}
+              levels={learningPathwayData?.levels ?? {}}
+            />
+          );
+        }
 
         // Render Learning Card if AI generated it
         if (learningCardData) {
@@ -136,14 +135,13 @@ if (learningPathwayData) {
                             typeof t === "string" ? t : t.title
                         )
                       : ["No related topics available."],
-                  suggestedQuestions:
-                    learningCardData.explore?.suggestedQuestions
-                      ? learningCardData.explore.suggestedQuestions
-                      : ["No suggested questions available."],
-                  note:
-                    learningCardData.explore?.note
-                      ? learningCardData.explore.note
-                      : ["No notes available."],
+                  suggestedQuestions: learningCardData.explore
+                    ?.suggestedQuestions
+                    ? learningCardData.explore.suggestedQuestions
+                    : ["No suggested questions available."],
+                  note: learningCardData.explore?.note
+                    ? learningCardData.explore.note
+                    : ["No notes available."],
                 },
                 prerequisites: learningCardData.prerequisites || [],
               }}
